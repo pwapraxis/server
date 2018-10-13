@@ -1,21 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import { AppController } from './app.controller';
+import { PushService } from './push/push.service';
+import { TodoService } from './sync/todo.service';
 
 describe('AppController', () => {
-  let app: TestingModule;
+    let app: TestingModule;
 
-  beforeAll(async () => {
-    app = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [],
-    }).compile();
-  });
-
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      const appController = app.get<AppController>(AppController);
-      expect(appController.root()).toBe('Hello World!');
+    beforeAll(async () => {
+        app = await Test.createTestingModule({
+            controllers: [AppController],
+            providers: [{
+                provide: PushService,
+                useValue: {}
+            }, {
+                provide: TodoService,
+                useValue: {}
+            }],
+        }).compile();
     });
-  });
+
+    it('should exist', () => {
+        const appController = app.get<AppController>(AppController);
+        expect(appController).toBeDefined();
+    });
 });
