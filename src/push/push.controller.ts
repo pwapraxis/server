@@ -8,7 +8,6 @@ export class PushController {
 
     @Post()
     postSubscription(@Headers('user-agent') userAgent: string, @Body() subscription: any) {
-        console.log(userAgent);
         this.pushService.push(userAgent, subscription);
     }
 }

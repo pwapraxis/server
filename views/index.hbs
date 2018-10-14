@@ -7,6 +7,10 @@
     <title>PWA Praxisbuch Demo Server</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/brands.css"
+          integrity="sha384-Px1uYmw7+bCkOsNAiAV5nxGKJ0Ixn5nChyW8lCK1Li1ic9nbO5pC/iXaq27X5ENt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css"
+          integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark mb-3">
@@ -23,20 +27,33 @@
     <p>{{ todos.length }} to-dos stored</p>
 
     <h2>VAPID Public Key</h2>
-    <pre>{{ publicKey }}</pre>
+    <p>
+        The VAPID key is generated during the first run of <code>pwaserver-praxis</code> and then stored across sessions.
+        In case you need to reset it, clear the following folder and re-start the server: <code>{{ storageLocation }}</code>.
+    </p>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="key" readonly value="{{ publicKey }}">
+        <div class="input-group-append">
+            <button class="btn copy-btn btn-outline-secondary" type="button" data-clipboard-target="#key">Copy</button>
+        </div>
+    </div>
 
-    <h2>Connected Browsers</h2>
+    <h2>Browsers Subscribed for Push</h2>
     {{#unless subscriptions.length}}
         (none)
     {{/unless}}
-    <ul>
+    <ul class="list-group">
         {{#each subscriptions}}
-            <li>{{ userAgent }}</li>
+            <li class="list-group-item"><i class="fab {{ icon }}"></i> {{ userAgent }}</li>
         {{/each}}
     </ul>
 
     <hr>
     Version {{ version }}
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js" integrity="sha256-hIvIxeqhGZF+VVeM55k0mJvWpQ6gTkWk3Emc+NmowYA=" crossorigin="anonymous"></script>
+<script>
+    new ClipboardJS('.copy-btn');
+</script>
 </body>
 </html>
