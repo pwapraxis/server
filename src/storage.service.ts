@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { LocalStorage } from 'node-localstorage';
 import * as path from 'path';
 
-const STORAGE_LOCATION = './storage';
+const STORAGE_LOCATION = path.join(__dirname, 'storage');
 
 @Injectable()
 export class StorageService {
@@ -13,7 +13,7 @@ export class StorageService {
   }
 
   getLocation(): string {
-    return path.join(__dirname, STORAGE_LOCATION);
+    return STORAGE_LOCATION;
   }
 
   set<T>(id: string, value: T): void {
