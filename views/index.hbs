@@ -27,10 +27,6 @@
     <p>{{ todos.length }} to-dos stored</p>
 
     <h2>VAPID Public Key</h2>
-    <p>
-        The VAPID key is generated during the first run of <code>pwaserver-praxis</code> and then stored across sessions.
-        In case you need to reset it, clear the following folder and re-start the server: <code>{{ storageLocation }}</code>.
-    </p>
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="key" readonly value="{{ publicKey }}">
         <div class="input-group-append">
