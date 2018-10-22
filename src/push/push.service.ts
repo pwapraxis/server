@@ -29,7 +29,10 @@ export class PushService {
     const notification = { notification: { title, body, icon: 'assets/icons/icon-128x128.png' } };
     this.subscriptions.forEach(subscription => {
       webpush.sendNotification(subscription.subscription, JSON.stringify(notification))
-        .catch(() => this.subscriptions.delete(subscription.subscription.endpoint));
+        .catch(err => {
+          this.logger.error(err);
+          this.subscriptions.delete(subscription.subscription.endpoint);
+        });
     });
   }
 
