@@ -26,7 +26,7 @@ export class PushService {
 
   pushToAll(title: string, body?: string): void {
     this.logger.log('Sending push message.');
-    const notification = { notification: { title, body } };
+    const notification = { notification: { title, body, icon: 'assets/icons/icon-128x128.png' } };
     this.subscriptions.forEach(subscription => {
       webpush.sendNotification(subscription.subscription, JSON.stringify(notification))
         .catch(() => this.subscriptions.delete(subscription.subscription.endpoint));
