@@ -30,7 +30,7 @@ export class PushService {
     this.subscriptions.forEach(subscription => {
       webpush.sendNotification(subscription.subscription, JSON.stringify(notification))
         .catch(err => {
-          this.logger.error(err);
+          this.logger.error('Unable to send push message, delete subscription.', JSON.stringify(err), 'PushService');
           this.subscriptions.delete(subscription.subscription.endpoint);
         });
     });
