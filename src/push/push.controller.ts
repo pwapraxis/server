@@ -1,14 +1,14 @@
-import { Body, Controller, Headers, Post, Req } from '@nestjs/common';
+import { Body, Controller, Headers, Post } from '@nestjs/common';
+import { IpService } from '../ip/ip.service';
 import { PushService } from './push.service';
-import { Request } from 'express';
 
 @Controller('push')
 export class PushController {
-    constructor(private readonly pushService: PushService) {
+    constructor(private readonly pushService: PushService, private readonly ipService: IpService) {
     }
 
     @Post()
-    postSubscription(@Headers('user-agent') userAgent: string, @Body() subscription: any, @Req() { ip }: Request) {
-        this.pushService.push(userAgent, subscription, ip);
+    postSubscription(@Headers('user-agent') userAgent: string, @Headers('x-forwarded-for') forwardedFor: string, @Body() subscription: any) {
+        this.pushService.push(userAgent, subscription, this.ipService.extractIp(forwardedFor));
     }
 }
