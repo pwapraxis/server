@@ -1,6 +1,6 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { PushService } from './push/push.service';
-import { StorageService } from './storage.service';
 import { TodoService } from './sync/todo.service';
 
 @Controller()
@@ -8,19 +8,17 @@ export class AppController {
   constructor(
     private readonly pushService: PushService,
     private readonly todoService: TodoService,
-    private readonly storageService: StorageService,
   ) {
   }
 
   @Get()
   @Render('index')
-  root() {
+  root(@Req() { ip }: Request) {
     return {
       publicKey: this.pushService.vapidKeys.publicKey,
-      subscriptions: this.pushService.getForPresentation(),
-      todos: this.todoService.todoStore,
+      subscriptions: this.pushService.getForPresentation(ip),
+      todos: this.todoService.getAll(ip),
       version: require('../package.json').version,
-      storageLocation: this.storageService.getLocation(),
     };
   }
 }
