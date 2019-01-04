@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
+import { Body, Controller, Headers, Post, Req } from '@nestjs/common';
 import { PushService } from './push.service';
+import { Request } from 'express';
 
 @Controller('push')
 export class PushController {
@@ -7,7 +8,7 @@ export class PushController {
     }
 
     @Post()
-    postSubscription(@Headers('user-agent') userAgent: string, @Body() subscription: any) {
-        this.pushService.push(userAgent, subscription);
+    postSubscription(@Headers('user-agent') userAgent: string, @Body() subscription: any, @Req() { ip }: Request) {
+        this.pushService.push(userAgent, subscription, ip);
     }
 }

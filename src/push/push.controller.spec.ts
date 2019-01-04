@@ -1,20 +1,26 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { PushController } from './push.controller';
 import { PushService } from './push.service';
 
-describe('Push Controller', () => {
-    let module: TestingModule;
-    beforeAll(async () => {
-        module = await Test.createTestingModule({
-            controllers: [PushController],
-            providers: [{
-                provide: PushService,
-                useValue: {}
-            }]
-        }).compile();
+describe('PushController', () => {
+  let sut: PushController;
+
+  let pushServiceMock: PushService;
+
+  beforeEach(() => {
+    pushServiceMock = { push: jest.fn() } as any;
+
+    sut = new PushController(pushServiceMock);
+  });
+
+  describe('postSubscription', () => {
+    it('should pass subscription to PushService', () => {
+      const userAgent = 'Mozilla/5.0';
+      const subscription = {};
+      const ip = 'IP';
+
+      sut.postSubscription(userAgent, subscription, { ip } as any);
+
+      expect(pushServiceMock.push).toHaveBeenCalledWith(userAgent, subscription, ip);
     });
-    it('should be defined', () => {
-        const controller: PushController = module.get<PushController>(PushController);
-        expect(controller).toBeDefined();
-    });
+  });
 });
