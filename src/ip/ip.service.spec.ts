@@ -10,8 +10,8 @@ describe('IpService', () => {
   describe('extractIp', () => {
     const expectedIp = '192.3.14.199';
 
-    it('should return IP from multiple values', () => {
-      const ip = '192.3.14.199:12377, 192.3.14.199';
+    it('should return IP from IP/port value', () => {
+      const ip = '192.3.14.199:12377';
 
       const result = sut.extractIp(ip);
 
