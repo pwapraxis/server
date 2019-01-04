@@ -1,15 +1,15 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Headers, Post } from '@nestjs/common';
+import { IpService } from '../ip/ip.service';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
 
 @Controller('sync')
 export class SyncController {
-  constructor(private readonly todoService: TodoService) {
+  constructor(private readonly todoService: TodoService, private readonly ipService: IpService) {
   }
 
   @Post()
-  root(@Body() todos: Todo[], @Req() { ip }: Request): Todo[] {
-    return this.todoService.sync(todos, ip);
+  root(@Headers('x-forwarded-for') forwardedFor: string, @Body() todos: Todo[]): Todo[] {
+    return this.todoService.sync(todos, this.ipService.extractIp(forwardedFor));
   }
 }

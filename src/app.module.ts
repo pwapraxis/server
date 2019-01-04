@@ -1,6 +1,7 @@
 import { CorsMiddleware } from '@nest-middlewares/cors';
 import { Logger, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
+import { IpService } from './ip/ip.service';
 import { memoryServiceFactory, memoryServiceFactoryDeps } from './memory/memory-service.factory';
 import { MemoryService } from './memory/memory.service';
 import { PushController } from './push/push.controller';
@@ -12,7 +13,7 @@ import { StorageService } from './storage.service';
 @Module({
   imports: [],
   controllers: [AppController, SyncController, PushController],
-  providers: [TodoService, PushService, Logger, StorageService, {
+  providers: [TodoService, PushService, Logger, StorageService, IpService, {
     provide: MemoryService,
     useFactory: memoryServiceFactory,
     inject: memoryServiceFactoryDeps,
