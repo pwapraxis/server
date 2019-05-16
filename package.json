@@ -34,7 +34,7 @@
     "rxjs": "^6.2.2",
     "typescript": "^3.2.2",
     "ua-parser-js": "^0.7.19",
-    "web-push": "^3.3.3"
+    "web-push": "^3.3.5"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
