@@ -42,7 +42,7 @@
     "jest": "^23.5.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
-    "rimraf": "^3.0.0",
+    "rimraf": "^3.0.1",
     "supertest": "^3.1.0",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.1",
