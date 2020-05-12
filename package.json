@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.1",
-    "@nestjs/common": "^6.8.0",
+    "@nestjs/common": "^7.0.10",
     "@nestjs/core": "^6.8.0",
     "@nestjs/microservices": "^6.0.0",
     "@nestjs/testing": "^5.5.0",
